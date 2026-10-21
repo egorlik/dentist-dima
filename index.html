@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Челюстно-лицевой хирург</title>
+  <link rel="icon" type="image/png" href="images/doctor/387628.png">
+  <meta name="description" content="Челюстно-лицевой хирург: операции любой сложности, понятный план лечения и запись на прием в Telegram.">
+
+  <!-- Шрифты: заголовки Manrope (600, 700), основной текст Inter (400, 500). Если меняете, поправьте также --font-heading / --font-body в style.css -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind через CDN; цвета и шрифты берутся из style.css -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['var(--font-body)'], heading: ['var(--font-heading)'] },
+          colors: {
+            ink: 'rgb(var(--ink-rgb) / <alpha-value>)',
+            brand: {
+              500: 'rgb(var(--brand-rgb) / <alpha-value>)',
+              600: 'rgb(var(--brand-dark-rgb) / <alpha-value>)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Anime.js (CDN) и наш скрипт. defer: выполняются по порядку после загрузки страницы -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script defer src="script.js"></script>
+
+  <!-- Ваши стили: правьте этот файл -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="antialiased">
+
+  <!-- Набор иконок (подключаются через <use>) -->
+  <svg width="0" height="0" class="absolute" aria-hidden="true">
+    <symbol id="i-tg" viewBox="0 0 24 24"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol>
+  </svg>
+
+  <!-- ============ ШАПКА ============ -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-ink/95 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+      <a href="#top" class="flex min-w-0 items-center gap-2.5 text-white">
+        <span class="grid h-9 w-9 flex-none place-items-center rounded-lg bg-brand-500">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M4 12h16"/></svg>
+        </span>
+        <span class="truncate font-heading text-lg font-semibold leading-none">РКБО ЧЛХ</span>
+      </a>
+
+      <nav class="hidden items-center gap-6 text-sm text-slate-300 lg:flex" aria-label="Разделы сайта">
+        <a href="#about" class="nav-link hover:text-white">О враче</a>
+        <a href="#education" class="nav-link hover:text-white">Образование</a>
+        <a href="#services" class="nav-link hover:text-white">Услуги</a>
+        <a href="#cases" class="nav-link hover:text-white">Работы</a>
+        <a href="#reviews" class="nav-link hover:text-white">Отзывы</a>
+        <a href="#faq" class="nav-link hover:text-white">Вопросы</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="#booking" data-magnetic class="btn btn-md btn-tg">
+          <svg aria-hidden="true"><use href="#i-tg"/></svg>
+          <span class="hidden sm:inline">Записаться на прием</span><span class="sm:hidden">Запись</span>
+        </a>
+        <button id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav"
+                class="grid h-10 w-10 place-items-center rounded-lg border border-white/15 text-white lg:hidden">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobileNav" class="border-t border-white/10 bg-ink lg:hidden" aria-label="Разделы сайта (мобильное меню)">
+      <div class="mx-auto grid max-w-6xl gap-1 px-4 py-3 text-slate-200 sm:px-6">
+        <a href="#about" class="rounded-lg px-3 py-2.5 hover:bg-white/5">О враче</a>
+        <a href="#education" class="rounded-lg px-3 py-2.5 hover:bg-white/5">Образование</a>
+        <a href="#services" class="rounded-lg px-3 py-2.5 hover:bg-white/5">Услуги</a>
+        <a href="#cases" class="rounded-lg px-3 py-2.5 hover:bg-white/5">Примеры работ</a>
+        <a href="#reviews" class="rounded-lg px-3 py-2.5 hover:bg-white/5">Отзывы</a>
+        <a href="#faq" class="rounded-lg px-3 py-2.5 hover:bg-white/5">Вопросы и контакты</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ 1. ГЛАВНЫЙ ЭКРАН ============ -->
+    <section id="hero" class="hero relative overflow-hidden">
+      <div class="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-16 pt-10 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-16">
+
+        <div class="lg:col-span-7">
+          <p class="eyebrow" data-hero>Челюстно-лицевой хирург · к.м.н.</p>
+          <h1 class="h-display mt-4" data-hero>Дмитрий Леонтьев: хирургия, после которой вы снова улыбаетесь</h1>
+          <p class="hero-lead mt-6 max-w-xl" data-hero>
+            Понятный план лечения, сроки и стоимость уже на первой консультации. Лично веду пациента от диагностики до полного восстановления.
+          </p>
+
+          <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center" data-hero>
+            <span class="tg-wrap" data-magnetic="strong">
+              <span class="pulse-ring"></span>
+              <a href="https://t.me/alphapnl" data-tg class="btn btn-lg btn-tg w-full sm:w-auto">
+                <svg aria-hidden="true"><use href="#i-tg"/></svg>
+                Записаться в Telegram
+              </a>
+            </span>
+            <a href="#about" data-magnetic class="btn btn-lg btn-ghost">О специалисте</a>
+          </div>
+          <p class="mt-4 text-sm text-slate-400" data-hero>Нажмите, и откроется диалог с врачом. Приложение Telegram должно быть на телефоне или компьютере.</p>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="hero-photo mx-auto max-w-sm lg:max-w-none">
+            <img id="doctorPhoto" src="images/doctor/main-doctor-hero.jpg" alt="Фото врача, челюстно-лицевого хирурга" data-zoom="doctor" tabindex="0" role="button"
+                 class="relative z-[1] aspect-[4/5] w-full rounded-3xl bg-slate-800 object-cover object-[50%_15%] shadow-2xl">
+            <div class="badge-float -left-3 top-8 sm:-left-6"><b data-count="5" data-suffix=" лет">5 лет</b>практики</div>
+            <div class="badge-float -right-2 bottom-10 sm:-right-5"><b data-count="1000" data-suffix="+">500+</b>операций</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. О СПЕЦИАЛИСТЕ ============ -->
+    <section id="about" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+
+        <div class="lg:col-span-5" data-reveal>
+          <div class="portrait mx-auto max-w-sm lg:max-w-none">
+            <!-- Файл: images/doctor/doctor-about.jpg -->
+            <img src="images/doctor/doctor-about.jpg" alt="Врач, челюстно-лицевой хирург, в кабинете" data-zoom="doctor" tabindex="0" role="button"
+                 class="aspect-[4/5] w-full rounded-3xl bg-slate-200 object-cover object-[50%_15%] shadow-xl">
+          </div>
+        </div>
+
+        <div class="lg:col-span-7" data-reveal>
+          <p class="eyebrow eyebrow-dark">О специалисте</p>
+          <h2 class="h-section mt-3 text-ink">Хирург, который объясняет каждый шаг</h2>
+          <span class="enamel-line"><i></i></span>
+
+          <p class="mt-6 text-lg leading-relaxed text-slate-600">
+            Меня зовут Дмитрий Иванович. Я челюстно-лицевой хирург с многолетним опытом операций разной сложности. Считаю, что пациент должен понимать, что с ним будет происходить, поэтому на консультации подробно показываю снимки, объясняю варианты лечения и честно говорю о рисках.
+          </p>
+          <p class="mt-4 leading-relaxed text-slate-600">
+            Работаю в тесном контакте с ортодонтами, стоматологами-имплантологами и анестезиологами, чтобы лечение было последовательным и безопасным.
+          </p>
+
+          <blockquote class="quote mt-8">
+            «Хорошая операция начинается с разговора: пациент должен уйти с консультации спокойным и с понятным планом».
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+        <div class="tile p-5">
+          <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>
+          <h3 class="mt-4 font-semibold text-ink">Прозрачность</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-slate-600">План, сроки и стоимость обсуждаем до начала лечения.</p>
+        </div>
+        <div class="tile p-5">
+          <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+          <h3 class="mt-4 font-semibold text-ink">Бережность</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-slate-600">Выбираю наименее травматичный способ, который решает задачу.</p>
+        </div>
+        <div class="tile p-5">
+          <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <h3 class="mt-4 font-semibold text-ink">На связи</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-slate-600">После операции можно написать врачу в Telegram с вопросом.</p>
+        </div>
+        <div class="tile p-5">
+          <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+          <h3 class="mt-4 font-semibold text-ink">Без спешки</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-slate-600">Время на консультацию достаточно, чтобы задать все вопросы.</p>
+        </div>
+      </div>
+
+      <dl class="stats mt-12 grid grid-cols-3 divide-x divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 bg-white text-center" data-reveal>
+        <div class="flex flex-col-reverse items-center justify-center gap-2 px-2 py-7 sm:py-9">
+          <dt class="text-xs text-slate-500 sm:text-sm">опыта</dt>
+          <dd class="stat-num" data-count="5" data-suffix=" лет">5 лет</dd>
+        </div>
+        <div class="flex flex-col-reverse items-center justify-center gap-2 px-2 py-7 sm:py-9">
+          <dt class="text-xs text-slate-500 sm:text-sm">операций</dt>
+          <dd class="stat-num" data-count="1000" data-suffix="+">1000+</dd>
+        </div>
+        <div class="flex flex-col-reverse items-center justify-center gap-2 px-2 py-7 sm:py-9">
+          <dt class="text-xs text-slate-500 sm:text-sm">категория</dt>
+          <dd class="stat-num">Высшая</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============ 3. ОБРАЗОВАНИЕ И КВАЛИФИКАЦИЯ ============ -->
+    <section id="education" class="bg-white py-16 lg:py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="max-w-2xl" data-reveal>
+          <p class="eyebrow eyebrow-dark">Образование и квалификация</p>
+          <h2 class="h-section mt-3 text-ink">Дипломы, сертификаты, повышение квалификации</h2>
+          <span class="enamel-line"><i></i></span>
+        </div>
+
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+          <div class="tile p-5">
+            <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+            <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-brand-600">2005–2011</p>
+            <h3 class="mt-1 font-semibold text-ink">Медицинский университет</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Лечебный факультет, диплом врача.</p>
+          </div>
+          <div class="tile p-5">
+            <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span>
+            <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-brand-600">2011–2013</p>
+            <h3 class="mt-1 font-semibold text-ink">Ординатура</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Челюстно-лицевая хирургия.</p>
+          </div>
+          <div class="tile p-5">
+            <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg></span>
+            <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-brand-600">Ежегодно</p>
+            <h3 class="mt-1 font-semibold text-ink">Повышение квалификации</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Курсы и стажировки в профильных клиниках.</p>
+          </div>
+          <div class="tile p-5">
+            <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg></span>
+            <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-brand-600">Действует</p>
+            <h3 class="mt-1 font-semibold text-ink">Аккредитация</h3>
+            <p class="mt-1.5 text-sm text-slate-600">Высшая квалификационная категория.</p>
+          </div>
+        </div>
+
+        <!-- Дипломы и сертификаты: файлы лежат в папке images/diplomas/ (названия указаны в src) -->
+        <h3 class="mt-14 font-heading text-xl font-semibold tracking-tight text-ink" data-reveal>Дипломы и сертификаты</h3>
+        <p class="mt-2 text-sm text-slate-500" data-reveal>Нажмите на документ, чтобы открыть его на весь экран.</p>
+        <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4" data-stagger>
+          <figure class="tile gallery-card">
+            <div class="gallery-card__img">
+              <img src="images/diplomas/diploma-higher-education.jpg" alt="Диплом кандидата медицинских наук" data-zoom="diplomas" tabindex="0" role="button" loading="lazy">
+              <span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+            </div>
+             <figcaption class="gallery-card__cap"><b>Высшее медицинское образование</b><span>Диплом о высшем образовании</span></figcaption>
+          </figure>
+          <figure class="tile gallery-card">
+            <div class="gallery-card__img">
+              <img src="images/diplomas/diploma-kmn.jpg" alt="Диплом о высшем медицинском образовании" data-zoom="diplomas" tabindex="0" role="button" loading="lazy">
+              <span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+            </div>
+            <figcaption class="gallery-card__cap"><b>Кандидат медицинских наук</b><span>Диплом КМН</span></figcaption>
+          </figure>
+          <figure class="tile gallery-card">
+            <div class="gallery-card__img">
+              <img src="images/diplomas/certificate-maxillofacial.jpg" alt="Сертификат челюстно-лицевого хирурга" data-zoom="diplomas" tabindex="0" role="button" loading="lazy">
+              <span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+            </div>
+            <figcaption class="gallery-card__cap"><b>Челюстно-лицевая хирургия</b><span>Сертификат специалиста</span></figcaption>
+          </figure>
+          <figure class="tile gallery-card">
+            <div class="gallery-card__img">
+              <img src="images/diplomas/certificate-implantology.jpg" alt="Сертификаты повышения квалификации" data-zoom="diplomas" tabindex="0" role="button" loading="lazy">
+              <span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+            </div>
+            <figcaption class="gallery-card__cap"><b>Повышение квалификации</b><span>Сертификаты, в том числе по имплантологии</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. УСЛУГИ И НАПРАВЛЕНИЯ ============ -->
+    <section id="services" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow eyebrow-dark">Услуги и направления</p>
+        <h2 class="h-section mt-3 text-ink">С чем помогаю</h2>
+        <span class="enamel-line"><i></i></span>
+      </div>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-stagger data-shine>
+        <article class="tile flex flex-col p-6">
+          <span class="icon-plate">
+            <i class="shine"></i>
+            <i class="spark" style="left:5px;top:6px"></i><i class="spark" style="right:6px;top:10px"></i><i class="spark" style="left:30px;bottom:5px"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5c-1.2-1.4-3-2-4.7-1.6C5 4.4 4 6.4 4 8.5c0 2 .8 3.4 1.2 5.2.5 2.4.6 5.3 1.6 6 .9.6 1.6-.3 2-1.7.4-1.4.6-3 1.2-3.9.2-.3.5-.4.8-.4s.6.1.8.4c.6.9.8 2.5 1.2 3.9.4 1.4 1.1 2.3 2 1.7 1-.7 1.1-3.6 1.6-6 .4-1.8 1.2-3.2 1.2-5.2 0-2.1-1-4.1-3.3-4.6C15 3.5 13.2 4.1 12 5.5z"/></svg>
+          </span>
+          <h3 class="mt-4 text-lg font-semibold text-ink">Удаление зубов</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">Удаление зубов мудрости и сложное удаление с бережным подходом и подробными рекомендациями на период восстановления.</p>
+          <a href="#booking" data-pick="Удаление зубов" class="contact-link mt-4 text-sm">Записаться на эту услугу →</a>
+        </article>
+
+        <article class="tile flex flex-col p-6">
+          <span class="icon-plate"><i class="shine"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+          </span>
+          <h3 class="mt-4 text-lg font-semibold text-ink">Имплантация и костная пластика</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">Хирургический этап: подготовка костной ткани и установка имплантов по согласованному плану с ортопедом.</p>
+          <a href="#booking" data-pick="Имплантация и костная пластика" class="contact-link mt-4 text-sm">Записаться на эту услугу →</a>
+        </article>
+
+        <article class="tile flex flex-col p-6">
+          <span class="icon-plate"><i class="shine"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
+          </span>
+          <h3 class="mt-4 text-lg font-semibold text-ink">Исправление прикуса</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">Ортогнатическая хирургия: операции на челюстях при выраженных нарушениях прикуса, совместно с ортодонтом.</p>
+          <a href="#booking" data-pick="Исправление прикуса" class="contact-link mt-4 text-sm">Записаться на эту услугу →</a>
+        </article>
+
+        <article class="tile flex flex-col p-6">
+          <span class="icon-plate"><i class="shine"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>
+          </span>
+          <h3 class="mt-4 text-lg font-semibold text-ink">Кисты и новообразования</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">Диагностика и удаление доброкачественных образований челюстей и мягких тканей лица.</p>
+          <a href="#booking" data-pick="Кисты и новообразования" class="contact-link mt-4 text-sm">Записаться на эту услугу →</a>
+        </article>
+
+        <article class="tile flex flex-col p-6">
+          <span class="icon-plate"><i class="shine"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
+          </span>
+          <h3 class="mt-4 text-lg font-semibold text-ink">Травмы и переломы</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">Лечение переломов челюстей и костей лица, помощь после травм и реабилитация.</p>
+          <a href="#booking" data-pick="Травмы и переломы" class="contact-link mt-4 text-sm">Записаться на эту услугу →</a>
+        </article>
+
+        <article class="tile flex flex-col p-6">
+          <span class="icon-plate"><i class="shine"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+          </span>
+          <h3 class="mt-4 text-lg font-semibold text-ink">ВНЧС и слюнные железы</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">Консультация и лечение при болях и щелчках в суставе, воспалениях и камнях слюнных желез.</p>
+          <a href="#booking" data-pick="ВНЧС и слюнные железы" class="contact-link mt-4 text-sm">Записаться на эту услугу →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 5. ПРИМЕРЫ РАБОТ (ДО / ПОСЛЕ) ============ -->
+    <section id="cases" class="bg-white py-16 lg:py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="max-w-2xl" data-reveal>
+          <p class="eyebrow eyebrow-dark">Примеры работ</p>
+          <h2 class="h-section mt-3 text-ink">Результаты до и после</h2>
+          <span class="enamel-line"><i></i></span>
+          <p class="mt-5 text-slate-600">Двигайте ползунок, чтобы сравнить. Фото публикуются с согласия пациентов.</p>
+        </div>
+
+        <!-- Фото кейсов лежат в папке images/cases/: case-N-before.jpg (до) и case-N-after.jpg (после) -->
+        <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3" data-stagger>
+          <article class="tile overflow-hidden">
+            <div class="ba">
+              <img class="ba__after" src="images/cases/case-1-after.jpg" alt="Результат: имплантация и реконструкция" data-zoom="cases">
+              <div class="ba__before"><img src="images/cases/case-1-before.jpg" alt="До лечения, кейс 1"></div>
+              <span class="ba__label ba__label--before">До</span><span class="ba__label ba__label--after">После</span>
+              <div class="ba__handle"></div>
+              <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Сравнение до и после, случай 1">
+              <button type="button" class="ba__expand" aria-label="Открыть на весь экран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+            </div>
+            <div class="p-4"><h3 class="font-semibold text-ink">Имплантация и реконструкция</h3><p class="mt-1 text-sm text-slate-500">Описание случая и срок лечения</p></div>
+          </article>
+
+          <article class="tile overflow-hidden">
+            <div class="ba">
+              <img class="ba__after" src="images/cases/case-2-after.jpg" alt="Результат: костная пластика" data-zoom="cases">
+              <div class="ba__before"><img src="images/cases/case-2-before.jpg" alt="До лечения, кейс 2"></div>
+              <span class="ba__label ba__label--before">До</span><span class="ba__label ba__label--after">После</span>
+              <div class="ba__handle"></div>
+              <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Сравнение до и после, случай 2">
+              <button type="button" class="ba__expand" aria-label="Открыть на весь экран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+            </div>
+            <div class="p-4"><h3 class="font-semibold text-ink">Костная пластика</h3><p class="mt-1 text-sm text-slate-500">Описание случая и срок лечения</p></div>
+          </article>
+
+          <article class="tile overflow-hidden">
+            <div class="ba">
+              <img class="ba__after" src="images/cases/case-3-after.jpg" alt="Результат: удаление новообразования" data-zoom="cases">
+              <div class="ba__before"><img src="images/cases/case-3-before.jpg" alt="До лечения, кейс 3"></div>
+              <span class="ba__label ba__label--before">До</span><span class="ba__label ba__label--after">После</span>
+              <div class="ba__handle"></div>
+              <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Сравнение до и после, случай 3">
+              <button type="button" class="ba__expand" aria-label="Открыть на весь экран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+            </div>
+            <div class="p-4"><h3 class="font-semibold text-ink">Удаление новообразования</h3><p class="mt-1 text-sm text-slate-500">Описание случая и срок лечения</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. ОТЗЫВЫ ============ -->
+    <section id="reviews" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow eyebrow-dark">Отзывы пациентов</p>
+        <h2 class="h-section mt-3 text-ink">Что говорят те, кто уже у нас лечился</h2>
+        <span class="enamel-line"><i></i></span>
+      </div>
+
+      <!-- ЗАМЕНИТЕ на реальные отзывы с разрешения авторов: выдуманные отзывы вводят пациентов в заблуждение -->
+      <div class="mt-10 grid gap-5 md:grid-cols-3" data-stagger>
+        <figure class="tile flex flex-col p-6">
+          <div class="stars" aria-label="5 из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <blockquote class="mt-4 flex-1 leading-relaxed text-slate-700">«Текст отзыва пациента. Расскажите, что понравилось: как врач объяснял план лечения, как прошло восстановление.»</blockquote>
+          <figcaption class="mt-5 flex items-center gap-3"><span class="avatar">А</span><span><b class="block text-sm text-ink">Имя пациента</b><span class="text-xs text-slate-500">Услуга, год</span></span></figcaption>
+        </figure>
+        <figure class="tile flex flex-col p-6">
+          <div class="stars" aria-label="5 из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <blockquote class="mt-4 flex-1 leading-relaxed text-slate-700">«Текст отзыва пациента. Можно добавить благодарность за внимание, понятные ответы на вопросы и быструю связь.»</blockquote>
+          <figcaption class="mt-5 flex items-center gap-3"><span class="avatar">М</span><span><b class="block text-sm text-ink">Имя пациента</b><span class="text-xs text-slate-500">Услуга, год</span></span></figcaption>
+        </figure>
+        <figure class="tile flex flex-col p-6">
+          <div class="stars" aria-label="5 из 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <blockquote class="mt-4 flex-1 leading-relaxed text-slate-700">«Текст отзыва пациента. Подойдут отзывы с конкретикой: с чем обращались и какой результат получили.»</blockquote>
+          <figcaption class="mt-5 flex items-center gap-3"><span class="avatar">Д</span><span><b class="block text-sm text-ink">Имя пациента</b><span class="text-xs text-slate-500">Услуга, год</span></span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 7. ЗАПИСЬ В TELEGRAM ============ -->
+    <section id="booking" class="booking-bg py-16 lg:py-24">
+      <div class="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-14">
+
+        <div class="lg:col-span-5" data-reveal>
+          <p class="eyebrow">Запись на прием</p>
+          <h2 class="h-section mt-3">Запишитесь в два касания</h2>
+          <span class="enamel-line"><i></i></span>
+          <ol class="mt-7 space-y-4 text-slate-300">
+            <li class="flex gap-3"><span class="grid h-7 w-7 flex-none place-items-center rounded-full bg-white/10 text-sm font-semibold">1</span>Выберите, что вас беспокоит, и удобное время.</li>
+            <li class="flex gap-3"><span class="grid h-7 w-7 flex-none place-items-center rounded-full bg-white/10 text-sm font-semibold">2</span>Нажмите кнопку: откроется Telegram с готовым сообщением врачу.</li>
+            <li class="flex gap-3"><span class="grid h-7 w-7 flex-none place-items-center rounded-full bg-white/10 text-sm font-semibold">3</span>Останется отправить его. Врач подтвердит время приема.</li>
+          </ol>
+        </div>
+
+        <div class="card p-6 sm:p-8 lg:col-span-7" data-reveal>
+          <fieldset>
+            <legend class="field-label">Что вас беспокоит</legend>
+            <div class="flex flex-wrap gap-2" id="procGroup">
+              <label class="chip"><input type="radio" name="proc" value="Консультация" class="sr-only" checked><span>Консультация</span></label>
+              <label class="chip"><input type="radio" name="proc" value="Удаление зубов" class="sr-only"><span>Удаление зубов</span></label>
+              <label class="chip"><input type="radio" name="proc" value="Имплантация и костная пластика" class="sr-only"><span>Имплантация</span></label>
+              <label class="chip"><input type="radio" name="proc" value="Исправление прикуса" class="sr-only"><span>Прикус</span></label>
+              <label class="chip"><input type="radio" name="proc" value="Кисты и новообразования" class="sr-only"><span>Кисты и новообразования</span></label>
+              <label class="chip"><input type="radio" name="proc" value="Травмы и переломы" class="sr-only"><span>Травма</span></label>
+              <label class="chip"><input type="radio" name="proc" value="ВНЧС и слюнные железы" class="sr-only"><span>ВНЧС, слюнные железы</span></label>
+            </div>
+          </fieldset>
+
+          <div class="mt-6 grid gap-6 sm:grid-cols-2">
+            <fieldset>
+              <legend class="field-label">Когда удобно</legend>
+              <div class="flex flex-wrap gap-2">
+                <label class="chip"><input type="radio" name="day" value="в любой день" class="sr-only" checked><span>Не важно</span></label>
+                <label class="chip"><input type="radio" name="day" value="сегодня" class="sr-only"><span>Сегодня</span></label>
+                <label class="chip"><input type="radio" name="day" value="завтра" class="sr-only"><span>Завтра</span></label>
+                <label class="chip"><input type="radio" name="day" value="на этой неделе" class="sr-only"><span>На неделе</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend class="field-label">Время суток</legend>
+              <div class="flex flex-wrap gap-2">
+                <label class="chip"><input type="radio" name="part" value="в любое время" class="sr-only" checked><span>Любое</span></label>
+                <label class="chip"><input type="radio" name="part" value="утром" class="sr-only"><span>Утро</span></label>
+                <label class="chip"><input type="radio" name="part" value="днем" class="sr-only"><span>День</span></label>
+                <label class="chip"><input type="radio" name="part" value="вечером" class="sr-only"><span>Вечер</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="mt-6">
+            <label for="f-name" class="field-label">Ваше имя (необязательно)</label>
+            <input id="f-name" type="text" autocomplete="name" maxlength="60" class="field" placeholder="Как к вам обращаться">
+          </div>
+
+          <p class="field-label mt-6">Сообщение, которое откроется в Telegram</p>
+          <p id="msgPreview" class="msg-preview"></p>
+
+          <span class="tg-wrap mt-6 block" data-magnetic="strong">
+            <span class="pulse-ring"></span>
+            <a id="tgBook" href="https://t.me/alphapnl" data-tg target="_blank" rel="noopener" class="btn btn-lg btn-tg w-full">
+              <svg aria-hidden="true"><use href="#i-tg"/></svg>
+              Записаться в Telegram
+            </a>
+          </span>
+          <p class="mt-3 text-center text-xs text-slate-500">Мы не собираем данные на сайте: сообщение отправляете вы сами в мессенджере.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. FAQ ============ -->
+    <section id="faq" class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:py-24">
+      <div data-reveal>
+        <p class="eyebrow eyebrow-dark">Частые вопросы</p>
+        <h2 class="h-section mt-3 text-ink">Отвечаю заранее</h2>
+        <span class="enamel-line"><i></i></span>
+      </div>
+
+      <div class="mt-8 space-y-3" data-stagger>
+        <details class="faq"><summary>Как проходит первая консультация?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="faq__body">Осмотр, изучение имеющихся снимков и обсуждение жалоб. По итогу вы получаете понятный план лечения, ориентировочные сроки и стоимость.</div></details>
+        <details class="faq"><summary>Что взять с собой на прием?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="faq__body">Паспорт, имеющиеся снимки (КТ, ОПТГ) и выписки, а также список принимаемых лекарств. Если снимков нет, подскажем, какие сделать.</div></details>
+        <details class="faq"><summary>Нужно ли направление от другого врача?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="faq__body">Для консультации направление не обязательно. Уточните этот вопрос в Telegram при записи.</div></details>
+        <details class="faq"><summary>Как быстро я получу ответ после записи?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="faq__body">В рабочее время мы отвечаем в Telegram в течение дня и подтверждаем удобное время приема.</div></details>
+        <details class="faq"><summary>Сколько длится восстановление?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="faq__body">Срок зависит от вида вмешательства и вашего состояния. На консультации врач назовет ориентиры именно для вашего случая и расскажет, как ускорить заживление.</div></details>
+        <details class="faq"><summary>Можно ли написать врачу после операции?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="faq__body">Да, после лечения вы можете задать вопросы в том же диалоге в Telegram. При ухудшении самочувствия сразу обращайтесь за очной помощью.</div></details>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ ПОДВАЛ / КОНТАКТЫ ============ -->
+  <footer id="contacts" class="bg-ink text-slate-300">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3">
+      <div>
+        <p class="font-heading text-xl font-semibold text-white">Название клиники</p>
+        <p class="mt-3 text-sm leading-relaxed text-slate-400">Челюстно-лицевая хирургия. Прием по записи.</p>
+        <a href="https://t.me/alphapnl" data-tg target="_blank" rel="noopener" data-magnetic class="btn btn-md btn-tg mt-5"><svg aria-hidden="true"><use href="#i-tg"/></svg>Написать в Telegram</a>
+      </div>
+      <div class="space-y-3">
+  <h3 class="text-lg font-bold text-white">Контакты</h3>
+
+  <!-- Врач -->
+  <div class="flex items-center gap-2 text-slate-300">
+    <span>👨‍⚕️ Врач:</span>
+    <a href="tel:+37300000000" class="font-bold text-white hover:underline">+373 00 000 000</a>
+  </div>
+
+  <!-- Instagram (иконка теперь на одной линии слева) -->
+  <div class="flex items-center gap-2 text-slate-300">
+    <svg class="h-4 w-4 shrink-0 fill-current text-slate-300" viewBox="0 0 24 24">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
+    <span>Instagram:</span>
+    <a href="https://instagram.com/leontiev.di" target="_blank" class="font-bold text-white hover:underline">leontiev.di</a>
+  </div>
+
+  <!-- Почта -->
+  <div class="flex items-center gap-2 text-slate-300">
+    <span>✉️ Почта:</span>
+    <a href="mailto:info@example.com" class="font-bold text-white hover:underline">info@example.com</a>
+  </div>
+</div>
+      <div class="text-sm">
+        <p class="font-semibold text-white">Где и когда</p>
+        <ul class="mt-3 space-y-2.5">
+          <li>г. Город Тирасполь, ул. Мира, 33</li>
+          <li>Пн–Пт, 9:00–18:00</li>
+          <li class="text-slate-500">Выходной: суббота,воскресенье</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:justify-between sm:px-6">
+        <p>© 2026 Название клиники</p>
+        <p>Имеются противопоказания. Необходима консультация специалиста.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ ПРОСМОТР ФОТО НА ВЕСЬ ЭКРАН ============ -->
+  <div id="lightbox" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm sm:p-10" role="dialog" aria-modal="true" aria-label="Просмотр фото" aria-hidden="true">
+    <button id="lbClose" type="button" aria-label="Закрыть" class="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25">
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button id="lbPrev" type="button" aria-label="Предыдущее фото" class="absolute left-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:left-6">
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button id="lbNext" type="button" aria-label="Следующее фото" class="absolute right-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 sm:right-6">
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <img id="lbImg" src="" alt="" class="max-h-full max-w-full rounded-lg object-contain shadow-2xl">
+    <p id="lbCount" class="absolute bottom-4 left-1/2 hidden -translate-x-1/2 rounded-full bg-white/10 px-3 py-1 text-sm text-white"></p>
+  </div>
+
+</body>
+</html>
